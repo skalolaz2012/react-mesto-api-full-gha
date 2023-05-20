@@ -16,12 +16,10 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const { login, createUser } = require('./controllers/auth');
 
-const { PORT = 3000, BASE_PATH, NODE_ENV, JWT_SECRET } = process.env;
-
-const token = jwt.sign(
-  { _id: user._id },
-  NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'
-);
+const {
+  PORT = 3000,
+  BASE_PATH,
+} = process.env;
 
 const app = express();
 
