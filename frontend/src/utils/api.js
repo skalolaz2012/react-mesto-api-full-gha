@@ -84,9 +84,9 @@ class Api {
 }
 
 export const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-58',
+  url: 'https://api.mesto-saperov.nomoredomains.monster',
   headers: {
-    authorization: 'cbc52507-7845-477e-abfa-382323046090',
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json',
   },
 })
