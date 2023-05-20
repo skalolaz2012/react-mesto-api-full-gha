@@ -5,7 +5,7 @@ const allowedCors = [
   'https://api.mesto-saperov.nomoredomains.monster',
   'http://api.mesto-saperov.nomoredomains.monster',
   'localhost:3000',
-  'http://localhost:3000'
+  'http://localhost:3000',
 ];
 
 module.exports = (req, res, next) => {
