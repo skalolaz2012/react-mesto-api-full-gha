@@ -31,12 +31,12 @@ const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
   const owner = req.user._id;
 
-  Card.findByIdAndRemove(cardId)
+  Card.findByIdAndRemove({ _id: req.params.cardId })
     .then((card) => {
       if (!card) {
         return next(new myError.NotFoundError(myError.NotFoundMsg));
       }
-      if (card.owner.toString() !== (owner)) {
+      if (card.owner.toHexString() !== (owner)) {
         return next(new myError.ForbiddenError(myError.ForbiddenMsg));
       }
       return res.send({ message: 'Удалено успешно' });
@@ -45,11 +45,10 @@ const deleteCard = (req, res, next) => {
 };
 
 const likeCard = (req, res, next) => {
-  const { cardId } = req.params;
   const owner = req.user._id;
 
   Card.findByIdAndUpdate(
-    cardId,
+    { _id: req.params.cardId },
     { $addToSet: { likes: owner } }, // добавить _id в массив, если его там нет
     { new: true },
   )
@@ -62,11 +61,10 @@ const likeCard = (req, res, next) => {
 };
 
 const dislikeCard = (req, res, next) => {
-  const { cardId } = req.params;
   const owner = req.user._id;
 
   Card.findByIdAndUpdate(
-    cardId,
+    { _id: req.params.cardId },
     { $pull: { ikes: owner } }, // убрать _id из массива
     { new: true },
   )
