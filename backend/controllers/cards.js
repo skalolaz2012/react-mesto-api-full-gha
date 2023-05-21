@@ -28,7 +28,6 @@ const createCard = (req, res, next) => {
 };
 
 const deleteCard = (req, res, next) => {
-  const { cardId } = req.params;
   const owner = req.user._id;
 
   Card.findByIdAndRemove({ _id: req.params.cardId })

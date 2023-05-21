@@ -28,17 +28,17 @@ const validateUser = {
 const validateEditUser = {
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30)
-    .messages({
-      'string.min': 'Поле "Имя" не должно быть менее 2 символов',
-      'string.max': 'Поле "Имя" не должно быть более 30 символов',
-      'any.required': 'Поле "Имя" не должно быть пустым!',
-    }),
+      .messages({
+        'string.min': 'Поле "Имя" не должно быть менее 2 символов',
+        'string.max': 'Поле "Имя" не должно быть более 30 символов',
+        'any.required': 'Поле "Имя" не должно быть пустым!',
+      }),
     about: Joi.string().required().min(2).max(30)
-    .messages({
-      'string.min': 'Поле "О себе" не должно быть менее 2 символов',
-      'string.max': 'Поле "О себе" не должно быть более 30 символов',
-      'any.required': 'Поле "О себе" не должно быть пустым!',
-    }),
+      .messages({
+        'string.min': 'Поле "О себе" не должно быть менее 2 символов',
+        'string.max': 'Поле "О себе" не должно быть более 30 символов',
+        'any.required': 'Поле "О себе" не должно быть пустым!',
+      }),
   }),
 };
 
@@ -51,7 +51,7 @@ const validateAvatar = {
 const validateUserId = {
   params: Joi.object({
     userId: Joi.string().required().hex().length(24)
-    .message('Id указан неверно'),
+      .message('Id указан неверно'),
   }),
 };
 
@@ -73,7 +73,7 @@ const validateCards = {
 const validateCardId = {
   params: Joi.object({
     cardId: Joi.string().required().hex().length(24)
-    .message('Id указан неверно'),
+      .message('Id указан неверно'),
   }),
 };
 

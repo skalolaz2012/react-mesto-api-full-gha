@@ -49,7 +49,7 @@ app.use('/users', auth, require('./routes/users'));
 app.use('/cards', auth, require('./routes/cards'));
 
 app.use(router);
-app.use('*', (req, res) => {
+app.use('*', (req, res, next) => {
   next(new myError.NotFoundError(myError.NotFoundMsg));
 }); // несуществующий роут всегда должен быть после остальных роутов в конце
 
