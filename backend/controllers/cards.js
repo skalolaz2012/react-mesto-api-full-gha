@@ -65,7 +65,7 @@ const dislikeCard = (req, res, next) => {
 
   Card.findByIdAndUpdate(
     { _id: req.params.cardId },
-    { $pull: { ikes: owner } }, // убрать _id из массива
+    { $pull: { likes: owner } }, // убрать _id из массива
     { new: true },
   )
     .populate(['owner', 'likes'])
