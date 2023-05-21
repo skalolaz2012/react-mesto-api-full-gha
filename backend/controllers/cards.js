@@ -69,7 +69,7 @@ const dislikeCard = (req, res, next) => {
     { new: true },
   )
     .populate(['owner', 'likes'])
-    .orFail(new myError.NotFoundError(myError.NotFoundMsg))
+    .orFail(() => new myError.NotFoundError(myError.NotFoundMsg))
     .then((card) => {
       res.send(card);
     })
