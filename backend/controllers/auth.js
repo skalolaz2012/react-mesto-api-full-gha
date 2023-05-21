@@ -28,8 +28,9 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       if (err.code === 11000) {
         next(new myError.AlreadyExistError(myError.AlreadyExistMsg));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -43,7 +44,7 @@ const login = (req, res, next) => {
       }
       return bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
-          next(new myError.AuthError('Неправильные почта или пароль'));
+          throw new myError.AuthError('Неправильные почта или пароль');
         }
         return res.send({
           token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' }),

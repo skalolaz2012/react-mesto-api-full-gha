@@ -4,6 +4,7 @@ const myError = require('../errors/errors');
 
 const getCards = (req, res, next) => {
   Card.find({})
+    .populate(['owner', 'likes'])
     .then((cards) => res.send(cards))
     .catch(next);
 };
@@ -20,19 +21,22 @@ const createCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new myError.BadRequestError(myError.BadRequestMsg));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
 const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
+  const owner = req.user._id;
 
   Card.findByIdAndRemove(cardId)
     .then((card) => {
       if (!card) {
         return next(new myError.NotFoundError(myError.NotFoundMsg));
-      } if (!card.owner.equals(req.user._id)) {
+      }
+      if (card.owner.toString() !== (owner)) {
         return next(new myError.ForbiddenError(myError.ForbiddenMsg));
       }
       return res.send({ message: 'Удалено успешно' });
@@ -41,11 +45,15 @@ const deleteCard = (req, res, next) => {
 };
 
 const likeCard = (req, res, next) => {
+  const { cardId } = req.params;
+  const owner = req.user._id;
+
   Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
+    cardId,
+    { $addToSet: { likes: owner } }, // добавить _id в массив, если его там нет
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .orFail(() => new myError.NotFoundError(myError.NotFoundMsg))
     .then((card) => {
       res.send({ card, message: 'Лайк!' });
@@ -54,11 +62,15 @@ const likeCard = (req, res, next) => {
 };
 
 const dislikeCard = (req, res, next) => {
+  const { cardId } = req.params;
+  const owner = req.user._id;
+
   Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $pull: { likes: req.user._id } }, // убрать _id из массива
+    cardId,
+    { $pull: { ikes: owner } }, // убрать _id из массива
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .orFail(new myError.NotFoundError(myError.NotFoundMsg))
     .then((card) => {
       res.send(card);

@@ -15,6 +15,7 @@ const defaultError = require('./middlewares/defaultError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const { login, createUser } = require('./controllers/auth');
+const myError = require('./errors/errors');
 
 const {
   PORT = 3000,
@@ -49,7 +50,7 @@ app.use('/cards', auth, require('./routes/cards'));
 
 app.use(router);
 app.use('*', (req, res) => {
-  res.send({ message: 'запрашиваемой страницы не существует' }, 404);
+  next(new myError.NotFoundError(myError.NotFoundMsg));
 }); // несуществующий роут всегда должен быть после остальных роутов в конце
 
 app.use(errorLogger); // подключаем логгер ошибок после роутов, до ошибок
