@@ -83,10 +83,4 @@ class Api {
   }
 }
 
-export const api = new Api({
-  url: 'https://api.mesto-saperov.nomoredomains.monster',
-  headers: {
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    'Content-Type': 'application/json',
-  },
-})
+export default Api

@@ -45,27 +45,27 @@ const deleteCard = (req, res, next) => {
 };
 
 const likeCard = (req, res, next) => {
-  const owner = req.user._id;
+  const { _id } = req.user;
 
   Card.findByIdAndUpdate(
     { _id: req.params.cardId },
-    { $addToSet: { likes: owner } }, // добавить _id в массив, если его там нет
+    { $addToSet: { likes: _id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
     .populate(['owner', 'likes'])
     .orFail(() => new myError.NotFoundError(myError.NotFoundMsg))
     .then((card) => {
-      res.send({ card, message: 'Лайк!' });
+      res.send(card);
     })
     .catch(next);
 };
 
 const dislikeCard = (req, res, next) => {
-  const owner = req.user._id;
+  const { _id } = req.user;
 
   Card.findByIdAndUpdate(
     { _id: req.params.cardId },
-    { $pull: { likes: owner } }, // убрать _id из массива
+    { $pull: { likes: _id } }, // убрать _id из массива
     { new: true },
   )
     .populate(['owner', 'likes'])

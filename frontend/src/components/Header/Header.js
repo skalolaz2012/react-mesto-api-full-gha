@@ -4,7 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 function Header({ email, handleSignOut, loggedIn }) {
   return (
     <header className="header">
-      <Link className="header__link" to={loggedIn ? "/" : "/sign-in" }>
+      <Link className="header__link" to={loggedIn ? '/' : '/sign-in'}>
         <img
           src={logoPath}
           alt="MESTO Russia - социальная сеть Руси"
