@@ -47,7 +47,7 @@ const login = (req, res, next) => {
           throw new myError.AuthError('Неправильные почта или пароль');
         }
         return res.send({
-          token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' }),
+          token: jwt.sign({ _id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' }),
         });
       });
     })
