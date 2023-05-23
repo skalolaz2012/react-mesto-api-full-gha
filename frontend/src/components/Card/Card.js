@@ -29,7 +29,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
           aria-label="Кнопка удаления карточки"
           className='elements__delete-button'
           onClick={handleDeleteClick}
-        ></button>
+        />
       )}
       <button className="elements__image-button" onClick={handleClick}>
         <img className="elements__image" src={card.link} alt={card.name} />

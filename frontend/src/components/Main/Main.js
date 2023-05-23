@@ -14,7 +14,6 @@ function Main({
   isLoaded,
 }) {
   const currentUser = useContext(CurrentUserContext)
-  console.log(currentUser)
   return (
     <>
       {!isLoaded ? (

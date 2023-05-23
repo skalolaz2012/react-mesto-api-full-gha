@@ -39,13 +39,13 @@ class Auth {
     })
   }
 
-  checkToken = (token) => {
+  checkToken = (data) => {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${data}`,
       },
     }).then((res) => {
       return this.checkRes(res)

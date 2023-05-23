@@ -51,7 +51,7 @@ function App() {
       .then((res) => {
         if (res) {
           setLoggedIn(true)
-            setEmail(res.user.email)
+            setEmail(res.email)
             navigate('/', { replace: true })
           }
         })
