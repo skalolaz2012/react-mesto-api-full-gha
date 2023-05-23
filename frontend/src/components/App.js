@@ -103,7 +103,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (loggedIn) {
+    loggedIn &&
       api
         .proceedFromServer()
         .then((res) => {
@@ -118,7 +118,6 @@ function App() {
         .finally(() => {
           setIsBtnLoading(false)
         })
-    }
   }, [loggedIn])
 
   function handleEditProfileClick() {

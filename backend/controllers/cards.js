@@ -4,19 +4,22 @@ const myError = require('../errors/errors');
 
 const getCards = (req, res, next) => {
   Card.find({})
-    .populate(['owner', 'likes'])
+    .populate('owner')
+    .populate('likes')
     .then((cards) => res.send(cards))
     .catch(next);
 };
 
 const createCard = (req, res, next) => {
+  const { name, link } = req.body;
+  const { _id } = req.user;
   Card.create({
-    name: req.body.name,
-    link: req.body.link,
-    owner: req.user._id, // используем req.user
+    name,
+    link,
+    owner: _id, // используем req.user
   })
-    .then((newCard) => {
-      res.status(201).send(newCard);
+    .then((card) => {
+      res.status(201).send(card);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

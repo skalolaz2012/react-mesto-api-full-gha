@@ -34,12 +34,6 @@ app.use(cors);
 
 app.use(requestLogger); // подключаем логгер запросов до роутов
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
 app.post('/signin', celebrate(validateLogin), login);
 app.post('/signup', celebrate(validateUser), createUser);
 
