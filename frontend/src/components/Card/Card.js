@@ -3,8 +3,8 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext)
-  const isOwn = card.owner._id === currentUser.user._id
-  const isLiked = card.likes.some((i) => i._id === currentUser.user._id)
+  const isOwn = card.owner._id === currentUser._id
+  const isLiked = card.likes.some((i) => i._id === currentUser._id)
   const cardLikeButtonClassName = `elements__button ${
     isLiked && 'elements__button_active'
   }`
@@ -43,7 +43,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             className={cardLikeButtonClassName}
             onClick={handleLikeClick}
           ></button>
-          <p className="elements__count">{card.likes.length}</p>
+          {(card.likes.length>0) && (<p className="elements__count">{card.likes.length}</p>)}
         </div>
       </div>
     </li>

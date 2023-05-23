@@ -34,7 +34,7 @@ const getYourself = (req, res, next) => {
     .orFail(() => {
       throw new myError.NotFoundError(myError.NotFoundMsg);
     })
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 

@@ -14,7 +14,7 @@ function Main({
   isLoaded,
 }) {
   const currentUser = useContext(CurrentUserContext)
-
+  console.log(currentUser)
   return (
     <>
       {!isLoaded ? (
@@ -24,7 +24,7 @@ function Main({
           <section className="profile">
             <div className="profile__circle">
               <img
-                src={currentUser.user.avatar}
+                src={currentUser.avatar}
                 alt="Фотография пользователя"
                 className="profile__avatar"
               />
@@ -36,14 +36,14 @@ function Main({
               ></button>
             </div>
             <div className="profile__info">
-              <h1 className="profile__title">{currentUser.user.name}</h1>
+              <h1 className="profile__title">{currentUser.name}</h1>
               <button
                 type="button"
                 aria-label="Кнопка редактирования профиля 'о себе'"
                 className="profile__edit-button"
                 onClick={onEditProfile}
               ></button>
-              <p className="profile__text">{currentUser.user.about}</p>
+              <p className="profile__text">{currentUser.about}</p>
             </div>
             <button
               type="button"
