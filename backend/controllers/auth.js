@@ -8,13 +8,16 @@ const myError = require('../errors/errors');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const createUser = (req, res, next) => {
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => User.create({
-      name: req.body.name,
-      about: req.body.about,
-      avatar: req.body.avatar,
-      email: req.body.email,
+      name,
+      about,
+      avatar,
+      email,
       password: hash,
     }))
     .then((user) => {
@@ -39,17 +42,12 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      if (!user) {
-        throw new myError.AuthError(myError.AuthMsg);
-      }
-      return bcrypt.compare(password, user.password).then((matched) => {
-        if (!matched) {
-          throw new myError.AuthError('Неправильные почта или пароль');
-        }
-        return res.send({
-          token: jwt.sign({ _id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' }),
-        });
-      });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        { expiresIn: '7d' },
+      );
+      res.send({ token })
     })
     .catch(next);
 };

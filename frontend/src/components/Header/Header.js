@@ -13,7 +13,7 @@ function Header({ email, handleSignOut, loggedIn }) {
       </Link>
       <div className="header__container">
         {email && (
-          <a className="header__email" href={`mailto:${email}`}>
+          <a className="header__email" href={`mailto:${email && email}`}>
             {email}
           </a>
         )}
