@@ -7,7 +7,6 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(values)
     onLogin(values.email, values.password)
   }
 

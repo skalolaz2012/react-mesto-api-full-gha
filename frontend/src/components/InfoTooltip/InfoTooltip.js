@@ -3,7 +3,7 @@ import failPic from '../../images/fail.svg'
 
 function InfoTooltip({ isOpen, onClose, error, onOverlay }) {
   return (
-    <div className={`popup popup_opacity_medium ${isOpen && 'popup_opened'} `} onClick={onOverlay}>
+    <div className={`popup popup_opacity_medium ${isOpen && 'popup_opened'} `} onMouseDown={onOverlay}>
       <div className="popup__figure">
         <button
           type="button"
